@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title></title>
+	<style type="text/css"> 
+	:root {
+	  --toolbar-height: 6vh;
+	  --main-font-size: 4vh;
+	}
+	body {
+	  font-size: var(--main-font-size);
+	  margin: 0;
+	  padding: 0;
+	}
+	fieldset { padding: 0.5vw; }
+	legend { font-size: 0.6em; }
+	#toolbar {
+	  overflow: hidden;
+	  position: sticky;
+	  top: 0;
+	  left:0;
+	}
+	.toolbar_item {
+	  display: inline-block;
+	  float: left;
+	  box-sizing: border-box;
+	  width: 33.33%;
+	  height: var(--toolbar-height);
+	  line-height: var(--toolbar-height);
+	  background: #ccf;
+	  border: #888 0 solid;
+	  border-width: 0 1px 0 1px;
+	  font-size: calc(var(--toolbar-height) / 2);
+	  color: #008;
+	  text-align: center;
+	}
+	.toolbar_item:hover {
+	  background: #eef;
+	}
+	.msg {
+	  clear: left;
+	  text-align: right;
+	  font-size: 0.6em;
+	  color: #888;
+	}
+	#triage_box {
+	  clear: left;
+	  padding: 0.5em 0 0.1em 0.5em;
+	  position: sticky;
+	  background: #ffc;
+	  overflow-x: hidden;
+	  top: var(--toolbar-height);
+	  left: 0;
+	  font-size: 0.75em;
+	}
+	[name="key_type"] { display: none; }
+	[name="key_type"]+label { float: left; width:2.5em; height:1.7em; text-align: center; opacity: 0.1}
+	[name="key_type"]:checked+label { border:1px solid; opacity: 1 }
+	#key_input {
+	  float: left;
+	  width: calc(100vw - 31vh);
+	  font-size: 1.25em;
+	  margin-left: 0.25em;
+	  padding: 0.05em 0 0.15em 0.15em;
+	}
+	#key_btn {
+	  float: left;
+	  position: absolute;
+	  font-size: 1em;
+	  width: 3em;
+	  height: 1.75em;
+	}
+	.key1, .key2 {
+	  height: 1.25em;
+	  line-height: 1.3em;
+	  background: #cfc;
+	  border: #000 1px solid;
+	  border-radius: 0.25em;
+	  margin: 2px;
+	  padding: 0.1em 0.2em 0.1em 0.2em;
+	  font-size: 0.8em;
+	}
+	.key2 {
+	  background: #fcc;
+	  text-decoration: line-through;
+	}
+	.item1, .item2, .item3, .item4, .item5, .item6 {
+	  box-sizing: border-box;
+	  font-size: 0.6em;
+	  height: 1.9em;
+	  line-height: 1em;
+	  float: left;
+	  background: #f4f4f4;
+	  border: #000 1px solid;
+	  border-radius: 0.24em;
+	  margin: 2px;
+	  padding: 0.2em 0 0 0.2em;
+	  overflow: hidden;
+	  white-space: nowrap;
+  	  text-overflow: ellipsis;
+	}
+	.item1 { width: calc(20% - 4px); }
+//	.item2 { width: calc(25% - 4px) }
+	.item2, .item3, .item4, .item5 { width: calc(100%/3 - 4px) }
+//	.item4 { width: calc(49vw - 10px) }
+	.item6 { width: calc(98vw - 16px) }
+
+	.card::-webkit-scrollbar { width: 0 }
+	.card {
+	  overflow: -moz-scrollbars-none;
+	  overflow: auto;
+	  position: fixed;
+	  top: 6vh;
+	  left: 0;
+	  width: 100%;
+	  height: 100%;
+	  background: rgba(0,0,0,0.8);
+	  font-size: 2vh;
+	  color: white;
+	}
+	.card_level {
+	  float: left;
+	  width: 16vw;
+	  height: 5vh;
+	  text-align: center;
+	  font-size: 4vh;
+	}
+	.card_input {
+	  border: 2px; border-style: none none solid none; border-color: white;
+	  padding: 0 0 0 1vw;
+	  width: 50vw;
+	  margin-left: 3vw;
+          background-color: transparent;
+	  color: white; font-size: 3.5vh;
+	}
+
+	.wiz_btn {
+	  float: left;
+	  width: 30vw;
+	  height: 15vw;
+	  margin: 1vw;
+	  border-radius: 1.5vw;
+	  text-align: center;
+	  font-size: 6vw;
+	  line-height: 16vw;
+	  color: #000;
+	}
+	</style> 
+	<script src="TPAS_DATA.js" ></script>
+	<script src="TPAS.js" ></script>
+</head>
+<body>
+  <div id="toolbar">
+    <div class="toolbar_item" onclick="if (wiz.style.display=='none') { wiz.style.display='block';wizard(0);} else wiz.style.display='none'; card.style.display='none'">主畫面</div>
+    <div class="toolbar_item" onclick="if (card.style.display=='none') card.style.display='block'; else card.style.display='none'; wiz.style.display='none'">資料卡</div>
+    <div class="toolbar_item" onclick="window.location.reload()">新檢傷</div>
+  </div>
+
+  <div id="triage_box">
+    <input id="key_1" name="key_type" type="radio" value="1" checked><label for="key_1" style="background:#cfc">包含</label>
+    <input id="key_2" name="key_type" type="radio" value="2"><label for="key_2" style="background:#fcc">排除</label>
+    <input id="key_input" type="textbox" onkeyup="if (event.keyCode === 13) key_btn.onclick();">
+    <input id="key_btn" type="button" value="搜尋" onclick="add_key(key_input.value); key_input.value=''"><br>
+    <div class="msg"><span id="msg"></span><span id="duration"></span></div>
+    <div id="key_box1"></div>
+    <div id="key_box2"></div>
+  </div>
+  <fieldset id="field1"></fieldset>
+  <fieldset id="field2"></fieldset>
+  <fieldset id="field3"></fieldset>
+  <fieldset id="field4"></fieldset>
+  <fieldset id="field5"></fieldset>
+  <fieldset id="field6"></fieldset>
+  <div id="box"></div>
+
+  <div id="card" class="card" style="display:none">
+    <div style="position:absolute; right:10vw; top:4.5vh">原因： ██意識改變&nbsp;&nbsp;██其他</div>
+    <div style="position:absolute; left:10vw; top:5vh">二次檢傷<br>
+      <div class="card_level" style="background:#f00">1</div>
+      <div class="card_level" style="background:#f80">2</div>
+      <div class="card_level" style="background:#ee0">3</div>
+      <div class="card_level" style="background:#0c0">4</div>
+      <div class="card_level" style="background:#00f">5</div>
+    </div>
+    <div style="position:absolute; left:10vw; top:15vh">急診檢傷<br>
+      <div class="card_level" style="background:#f00">1</div>
+      <div class="card_level" style="background:#f80">2</div>
+      <div class="card_level" style="background:#ee0">3</div>
+      <div class="card_level" style="background:#0c0">4</div>
+      <div class="card_level" style="background:#00f">5</div>
+    </div>
+    <div style="position:absolute; left:10vw; top:25vh">＃救護員<input class="card_input"></div>
+    <div style="position:absolute; left:10vw; top:30vh">＃傷病患<input class="card_input"></div>
+    <div style="position:absolute; left:10vw; top:35vh">後送醫院<input class="card_input"></div>
+    <div style="position:absolute; left:10vw; top:40vh">成人內科>一般及其他>高血糖>判定依據</div>
+    <div style="position:absolute; top:100vw">.</div>	<!-- Double height spacing-->
+  </div>
+
+  <div id="wiz" class="card" style="display:none">
+    <div id="wiz1" style="position:relative; left:10vw; top:5vh; width:80vw; font-size: 4vh">問題</div>
+    <div id="wiz2" style="position:relative; left:10vw; top:10ch; width:80vw; font-size: 2vh">註解</div>
+    <div style="position:fixed; left:2vw; bottom:50vh; width:100%; height:1px">
+      <div id="wiz_btn2" class="wiz_btn" style="background:#cfc">否</div>
+      <div id="wiz_btn1" class="wiz_btn" style="background:#ccc">不確定</div>
+      <div id="wiz_btn3" class="wiz_btn" style="background:#fcc">是</div>
+    </div>
+    <div style="position:absolute; top:100vw">.</div>	<!-- Double height spacing-->
+  </div>
+</body>
+</html>
