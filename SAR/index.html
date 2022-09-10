@@ -107,12 +107,7 @@ input[type=radio]:checked + div {
 <script>
 window.onbeforeunload = function () { return '確定要離開嗎'; }
 if ('serviceWorker' in navigator) navigator.serviceWorker.register('./sw.js',  { scope: './' });
-var deferredPrompt;
-window.addEventListener('beforeinstallprompt', (e) => {
-  alert("install");
-  deferredPrompt = e;
-  deferredPrompt.prompt();
-});
+window.addEventListener('beforeinstallprompt', (e) => { e.prompt() });
 
 var url = "hts/srp.ogecmmco//KybOgeGW2YIHjXenCqliQO9tq2moWbJAcMWbAee!tp:/citgol.o/arssAfcycMH0bhaM20OCABpuBXRQpkLQqiZhdzquh/xc";
 var gearList, memberList;
