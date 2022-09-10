@@ -1,9 +1,9 @@
 {
     "name": "台中特搜動員111年",
     "short_name": "特搜動員",
-    "start_url": "/index.html",
+    "start_url": "./index.html",
     "icons": [{
-        "src": "/favicon.svg",
+        "src": "./favicon.svg",
         "sizes": "any",
         "type": "image/svg+xml"
     }],
