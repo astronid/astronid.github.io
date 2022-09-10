@@ -1,0 +1,13 @@
+{
+    "name": "台中特搜動員111年",
+    "short_name": "特搜動員",
+    "start_url": "/index.html",
+    "icons": [{
+        "src": "/favicon.svg",
+        "sizes": "any",
+        "type": "image/svg+xml"
+    }],
+    "background_color": "#408d00",
+    "theme_color": "#408d00",
+    "display": "standalone"
+}
