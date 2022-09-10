@@ -106,13 +106,11 @@ input[type=radio]:checked + div {
 
 <script>
 window.onbeforeunload = function () { return '確定要離開嗎'; }
+var deferredPrompt;
 window.addEventListener('beforeinstallprompt', (e) => {
-  // You can save the event in order to trigger the prompt later (see below)
+  alert("install");
   deferredPrompt = e;
-
-  // Update UI notify the user they can add to home screen.
-  // With this you can show the Add to home screen button.
-  showInstallPromotion();
+  deferredPrompt.prompt();
 });
 
 var url = "hts/srp.ogecmmco//KybOgeGW2YIHjXenCqliQO9tq2moWbJAcMWbAee!tp:/citgol.o/arssAfcycMH0bhaM20OCABpuBXRQpkLQqiZhdzquh/xc";
