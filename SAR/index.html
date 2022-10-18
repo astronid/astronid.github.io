@@ -148,7 +148,7 @@ $("#submit2").click(()=>{
 });
 
 var DefaultCam;	//預設相機
-navigator.mediaDevices.getUserMedia({audio: true, video: true}).then(firstCall=> 	//iOS似乎要先呼叫一次這個才能拿到enumerateDevicesId
+navigator.mediaDevices.getUserMedia({video: true}).then(firstCall=> 	//iOS似乎要先呼叫一次這個才能拿到enumerateDevicesId
 navigator.mediaDevices.enumerateDevices()).then(devices => {
   if (devices[0]) DefaultCam = devices[0].deviceId;	//有0至少用0(優先權最低)
   if (devices[1]) DefaultCam = devices[1].deviceId;	//有1優先用1(優先權次之)
