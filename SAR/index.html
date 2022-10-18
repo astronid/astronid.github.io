@@ -162,8 +162,7 @@ navigator.mediaDevices.enumerateDevices()).then(devices => {
       $("#openqr").trigger("pointerdown");
     });
   };
-  if (!DefaultCam) alert("找不到相機! ("+ devices.length +")"+devices[0].kind+"_"+devices[0].label+"_"+devices[0].deviceId);
-});
+}).catch((e)=>{ alert(e); });
 openqr.onpointerdown = async function() {
   if (qr.style.display == "none" && DefaultCam) qr.style.display = ""; else return;	//避免多開&相機必須存在
   let stream = await navigator.mediaDevices.getUserMedia({video:{deviceId:DefaultCam}}).catch(()=>{ alert("無法開啟相機"); qrclose(); });
