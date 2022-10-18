@@ -148,8 +148,10 @@ $("#submit2").click(()=>{
 });
 
 var DefaultCam;	//預設相機
-navigator.mediaDevices.getUserMedia({video: true}).then(stream=> 	//iOS似乎要先呼叫一次這個才能拿到enumerateDevicesId
-navigator.mediaDevices.enumerateDevices()).then(devices => {
+navigator.mediaDevices.getUserMedia({video: true}).then(stream=>{	//iOS似乎要先呼叫一次這個才能拿到enumerateDevicesId
+navigator.mediaDevices.enumerateDevices()
+stream.getTracks().forEach(track => track.stop());
+}).then(devices => {
   if (devices[0]) DefaultCam = devices[0].deviceId;	//有0至少用0(優先權最低)
   if (devices[1]) DefaultCam = devices[1].deviceId;	//有1優先用1(優先權次之)
   for (let i=0; i<devices.length; i++) {
@@ -162,8 +164,7 @@ navigator.mediaDevices.enumerateDevices()).then(devices => {
       $("#openqr").trigger("pointerdown");
     });
   };
-  stream.getTracks().forEach(track => track.stop());
-}).catch((e)=>{ alert(e); });
+}).catch((e)=>alert(e));
 openqr.onpointerdown = async function() {
   if (qr.style.display == "none" && DefaultCam) qr.style.display = ""; else return;	//避免多開&相機必須存在
   let stream = await navigator.mediaDevices.getUserMedia({video:{deviceId:DefaultCam}}).catch(()=>{ alert("無法開啟相機"); qrclose(); });
